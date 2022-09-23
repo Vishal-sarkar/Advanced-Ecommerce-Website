@@ -62,4 +62,5 @@ class AdminProfileController extends Controller
             
         }
     }
+    
 }
