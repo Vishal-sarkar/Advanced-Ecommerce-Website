@@ -1,7 +1,7 @@
 @extends('admin.admin_master')
 @section('admin')
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -14,7 +14,7 @@
             <div class="col-8">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">SubCategory List</h3>
+                        <h3 class="box-title">Sub->SubCategory List</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -23,22 +23,22 @@
                                 <thead>
                                     <tr>
                                         <th>Category </th>
-                                        <th>SubCategory En</th>
-                                        <th>SubCategory Hin</th>
+                                        <th>SubCategory Name</th>
+                                        <th>Sub-SubCategory English</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($subcategory as $item)
+                                    @foreach($subsubcategory as $item)
                                     <tr>
                                         <td>{{$item['category']['category_name_en']}}</td>
-                                        <td>{{$item->subcategory_name_en}}</td>
-                                        <td>{{$item->subcategory_name_hin}}</td>
+                                        <td>{{$item['subcategory']['subcategory_name_en']}}</td>
+                                        <td>{{$item->subsubcategory_name_en}}</td>
                                         <td width="30%">
-                                            <a href="{{route('subcategory.edit',$item->id)}}" class="btn btn-info"
+                                            <a href="{{route('subsubcategory.edit',$item->id)}}" class="btn btn-info"
                                                 title="Edit Data"><i class="fa fa-pencil"></i></a>
-                                            <a href="{{route('subcategory.delete',$item->id)}}" class="btn btn-danger"
-                                                id="delete" title="Delete Data"><i class="fa fa-trash"></i</a>
+                                            <a href="{{route('subsubcategory.delete',$item->id)}}" class="btn btn-danger"
+                                                id="delete" title="Delete Data"><i class="fa fa-trash"></i< /a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -60,7 +60,7 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="table-responsive">
-                            <form method="post" action="{{route('subcategory.store')}}">
+                            <form method="post" action="{{route('subsubcategory.store')}}">
                                 @csrf
 
                                 <div class="form-group">
@@ -81,14 +81,29 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <h5>SubCategory Select <span class="text-danger">*</span></h5>
+                                    <div class="controls">
+                                        <select name="subcategory_id" class="form-control">
+                                            <option value="" selected="" disabled="">Select SubCategory</option>
+                                        </select>
+                                        @error('subcategory_id')
+                                        <span class="text-danger">
+                                            <strong>{{$message}}</strong>
+                                        </span>
+                                        @enderror
+                                        <div class="help-block"></div>
+                                    </div>
+                                </div>
+
 
 
                                 <div class="form-group">
-                                    <h5>Sub Category English<span class="text-danger">*</span></h5>
+                                    <h5>Sub-SubCategory English<span class="text-danger">*</span></h5>
                                     <div class="controls">
-                                        <input type="text" name="subcategory_name_en" class="form-control">
+                                        <input type="text" name="subsubcategory_name_en" class="form-control">
                                     </div>
-                                    @error('subcategory_name_en')
+                                    @error('subsubcategory_name_en')
                                     <span class="text-danger">
                                         <strong>{{$message}}</strong>
                                     </span>
@@ -96,11 +111,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <h5>Sub Category Hindi<span class="text-danger">*</span></h5>
+                                    <h5>Sub-SubCategory Hindi<span class="text-danger">*</span></h5>
                                     <div class="controls">
-                                        <input type="text" name="subcategory_name_hin" class="form-control">
+                                        <input type="text" name="subsubcategory_name_hin" class="form-control">
                                     </div>
-                                    @error('subcategory_name_hin')
+                                    @error('subsubcategory_name_hin')
                                     <span class="text-danger">
                                         <strong>{{$message}}</strong>
                                     </span>
@@ -127,7 +142,30 @@
 </div>
 <!-- /.content-wrapper -->
 
-
+<script type="text/javascript">
+$(document).ready(function() {
+    $('select[name="category_id"]').on('change', function() {
+        var category_id = $(this).val();
+        if (category_id) {
+            $.ajax({
+                url: "{{  url('/category/subcategory/ajax') }}/" + category_id,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    var d = $('select[name="subcategory_id"]').empty();
+                    $.each(data, function(key, value) {
+                        $('select[name="subcategory_id"]').append(
+                            '<option value="' + value.id + '">' + value
+                            .subcategory_name_en + '</option>');
+                    });
+                },
+            });
+        } else {
+            alert('danger');
+        }
+    });
+});
+</script>
 
 
 
