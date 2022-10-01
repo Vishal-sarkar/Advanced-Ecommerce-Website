@@ -20,6 +20,16 @@ class ProductController extends Controller
         $brands = Brand::latest()->get();
         return view('backend.product.product_add', compact('categories', 'brands'));
     }
+    public function ProductDetailView($id){
+        $multiImgs = Multiimg::where('product_id', $id)->get();
+        $products = Product::findOrFail($id);
+        $brands = Brand::latest()->get();
+        $subcategory = Subcategory::latest()->get();
+        $subsubcategory = SubSubcategory::latest()->get();
+        $categories = Category::latest()->get();
+
+        return view('backend.product.product_details_view', compact('products','brands','subcategory','subsubcategory','categories','multiImgs'));
+    }
 
     public function StoreProduct(Request $request){
         $image = $request->file('product_thambnail');
@@ -152,6 +162,72 @@ class ProductController extends Controller
         }
         $notification = array(
             'message' => 'Product Image Updated successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    //// Product Main Thambnail Upadate /////
+    public function ThambnailImageUpdate(Request $request){
+        $pro_id = $request->id;
+        $oldImage = $request->old_img;
+        unlink($oldImage);
+        $image = $request->file('product_thambnail');
+        $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+        Image::make($image)->resize(917,1000)->save('upload/products/thambnail/'.$name_gen);
+        $save_url = 'upload/products/thambnail/'.$name_gen;
+        Product::findOrFail($pro_id)->update([
+            'product_thambnail' => $save_url,
+            'updated_at' => Carbon::now(),
+        ]);
+        $notification = array(
+            'message' => 'Product Thambnail Updated successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+
+    public function MultiImageDelete($id){
+        $oldimg = Multiimg::findOrFail($id);
+        unlink($oldimg->photo_name);
+        $oldimg->delete();
+        $notification = array(
+            'message' => 'Product Thambnail Updated successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+
+    public function ProductInactive($id){
+        Product::findOrFail($id)->update(['status' => 0]);
+        $notification = array(
+            'message' => 'Product Inactive',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function ProductActive($id){
+        Product::findOrFail($id)->update(['status' => 1]);
+        $notification = array(
+            'message' => 'Product Active',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function ProductDelete($id){
+        $product = Product::findOrFail($id);
+        unlink($product->product_thambnail);
+        Product::findOrFail($id)->delete();
+        $images = Multiimg::where('product_id',$id)->get();
+        foreach ($images as $img) {
+            unlink($img->photo_name);
+            Multiimg::where('product_id',$id)->delete();
+        }
+        $notification = array(
+            'message' => 'Product deleted successfully',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
