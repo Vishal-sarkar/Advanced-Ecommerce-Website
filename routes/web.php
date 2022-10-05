@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
@@ -10,6 +9,9 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Models\User;
+
+use App\Http\Controllers\frontend\IndexController;
+use App\Http\Controllers\frontend\LanguageController;
 
 
 /*
@@ -33,6 +35,8 @@ Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 	Route::post('/login',[AdminController::class, 'store'])->name('admin.login');
 });
 
+Route::middleware(['auth:admin'])->group(function(){
+
 
 
 
@@ -48,7 +52,7 @@ Route::post('/admin/profile/store',[AdminProfileController::class, 'AdminProfile
 Route::get('/admin/change/password',[AdminProfileController::class, 'AdminChangePassword'])->name('admin.change.password');
 Route::post('/update/change/password',[AdminProfileController::class, 'AdminUpdateChangePassword'])->name('update.change.password');
 
-
+});
 //  User all route
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
@@ -126,3 +130,8 @@ Route::prefix('slider')->group(function(){
     Route::get('/iactive/{id}', [SliderController::class, 'SliderInactive'])->name('slider.inactive');
     Route::get('/active/{id}', [SliderController::class, 'SliderActive'])->name('slider.active');
 });
+
+////////////// Frontend All Route //////////////
+///////////// Multi Language All Route //////////
+    Route::get('/language/hindi', [LanguageController::class, 'Hindi'])->name('hindi.language');
+    Route::get('/language/english', [LanguageController::class, 'English'])->name('english.language');
