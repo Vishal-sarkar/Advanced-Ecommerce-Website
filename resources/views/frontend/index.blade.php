@@ -1,5 +1,10 @@
 @extends('frontend.main_master')
 @section('content')
+
+@section('title')
+Home Easy Learning
+@endsection
+
 <div class="body-content outer-top-xs" id="top-banner-and-menu">
     <div class="container">
         <div class="row">
@@ -1065,7 +1070,7 @@
                                         <div class="products">
                                             <div class="product">
                                                 <div class="product-image">
-                                                    <div class="image"> <a href="detail.html"><img
+                                                    <div class="image"> <a href="{{ url('product/details/'.$product->id).'/'.$product->product_slug_en }}"><img
                                                                 src="{{ asset($product->product_thambnail) }}"
                                                                 alt=""></a> </div>
                                                     <!-- /.image -->
@@ -1087,7 +1092,7 @@
 
                                                 <div class="product-info text-left">
                                                     <h3 class="name"><a
-                                                            href="detail.html">@if(session()->get('language') ==
+                                                            href="{{ url('product/details/'.$product->id).'/'.$product->product_slug_en }}">@if(session()->get('language') ==
                                                             'hindi') {{$product->product_name_hin}} @else
                                                             {{$product->product_name_en}}
                                                             @endif</a>
@@ -1162,7 +1167,7 @@
                                         <div class="products">
                                             <div class="product">
                                                 <div class="product-image">
-                                                    <div class="image"> <a href="detail.html"><img
+                                                    <div class="image"> <a href="{{ url('product/details/'.$product->id).'/'.$product->product_slug_en }}"><img
                                                                 src="{{ asset($product->product_thambnail) }}"
                                                                 alt=""></a> </div>
                                                     <!-- /.image -->
@@ -1180,7 +1185,7 @@
 
                                                 <div class="product-info text-left">
                                                     <h3 class="name"><a
-                                                            href="detail.html">@if(session()->get('language') ==
+                                                            href="{{ url('product/details/'.$product->id).'/'.$product->product_slug_en }}">@if(session()->get('language') ==
                                                             'hindi') {{$product->product_name_hin}} @else
                                                             {{$product->product_name_en}}
                                                             @endif</a>

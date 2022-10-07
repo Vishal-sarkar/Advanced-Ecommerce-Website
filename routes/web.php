@@ -135,3 +135,6 @@ Route::prefix('slider')->group(function(){
 ///////////// Multi Language All Route //////////
     Route::get('/language/hindi', [LanguageController::class, 'Hindi'])->name('hindi.language');
     Route::get('/language/english', [LanguageController::class, 'English'])->name('english.language');
+
+    // Frontend Product Details Page url
+    Route::get('product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
