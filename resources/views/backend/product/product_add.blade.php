@@ -270,7 +270,7 @@
                                             <div class="form-group">
                                                 <h5>Product Dicounted Price <span class="text-danger">*</span></h5>
                                                 <div class="controls">
-                                                    <input type="text" name="discount_price" class="form-control" required="">
+                                                    <input type="text" name="discount_price" class="form-control">
                                                     @error('discount_price')
                                                     <span class="text-danger">
                                                         <strong>{{$message}}</strong>
