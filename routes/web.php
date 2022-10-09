@@ -138,3 +138,6 @@ Route::prefix('slider')->group(function(){
 
     // Frontend Product Details Page url
     Route::get('product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
+
+    // Frontend Product Details Page url
+    Route::get('product/tag/{tag}', [IndexController::class, 'TagWiseProduct']);
