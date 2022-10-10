@@ -177,8 +177,8 @@
                     <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
                         <div class="nav-outer">
                             <ul class="nav navbar-nav">
-                                <li class="active dropdown yamm-fw"> <a href="{{url('/')}}" data-hover="dropdown"
-                                        class="dropdown-toggle" data-toggle="dropdown">@if(session()->get('language') ==
+                                <li class="active dropdown yamm-fw"> <a
+                                        href="{{url('/')}}">@if(session()->get('language') ==
                                         'hindi') घर @else Home @endif</a> </li>
 
                                 <!-- /// Get Category Table data /// -->
@@ -204,11 +204,15 @@
                                                     @endphp
                                                     @foreach($subcategories as $subcategory)
                                                     <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                        <h2 class="title">
-                                                            <strong>@if(session()->get('language') == 'hindi')
+                                                        <a href="{{url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug_en)}}" style="padding:0;">
+                                                            <h2 class="title" >
+                                                                @if(session()->get('language') == 'hindi')
                                                                 {{$subcategory->subcategory_name_hin}} @else
-                                                                {{$subcategory->subcategory_name_en}} @endif</strong>
-                                                        </h2>
+                                                                {{$subcategory->subcategory_name_en}}
+                                                                @endif
+                                                            </h2>
+                                                        </a>
+
                                                         <!-- /// Get SubSubCategory Table data /// -->
                                                         @php
                                                         $subsubcategories =
@@ -217,7 +221,7 @@
                                                         @foreach($subsubcategories as $subsubcategory)
                                                         <ul class="links">
 
-                                                            <li><a href="#">@if(session()->get('language') == 'hindi')
+                                                            <li><a href="{{url('subsubcategory/product/'.$subsubcategory->id.'/'.$subsubcategory->subsubcategory_name_en)}}">@if(session()->get('language') == 'hindi')
                                                                     {{$subsubcategory->subsubcategory_name_hin}} @else
                                                                     {{$subsubcategory->subsubcategory_name_en}}
                                                                     @endif</a>

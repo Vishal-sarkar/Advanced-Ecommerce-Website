@@ -139,5 +139,11 @@ Route::prefix('slider')->group(function(){
     // Frontend Product Details Page url
     Route::get('product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
 
-    // Frontend Product Details Page url
+    // Frontend Tag Wise Product Details Page url
     Route::get('product/tag/{tag}', [IndexController::class, 'TagWiseProduct']);
+
+    // Frontend Subcategory Wise Product Details Page url
+    Route::get('subcategory/product/{subcat_id}/{slug}', [IndexController::class, 'SubCatWiseProduct']);
+
+    // Frontend subsubcategory wise Product Details Page url
+    Route::get('subsubcategory/product/{subsubcat_id}/{slug}', [IndexController::class, 'SubSubCatWiseProduct']);

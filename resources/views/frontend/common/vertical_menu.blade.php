@@ -20,11 +20,14 @@ $categories = App\Models\Category::orderBy('category_name_en','ASC')->get();
                             @endphp
                             @foreach($subcategories as $subcategory)
                             <div class="col-sm-12 col-md-3">
-                                <h2 class="title">
-                                    <strong>@if(session()->get('language') == 'hindi')
-                                        {{$subcategory->subcategory_name_hin}} @else
-                                        {{$subcategory->subcategory_name_en}} @endif</strong>
-                                </h2>
+                                <a href="{{url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug_en)}}"
+                                    style="padding:0;">
+                                    <h2 class="title">
+                                        <strong>@if(session()->get('language') == 'hindi')
+                                            {{$subcategory->subcategory_name_hin}} @else
+                                            {{$subcategory->subcategory_name_en}} @endif</strong>
+                                    </h2>
+                                </a>
                                 <!-- /// Get SubSubCategory Table data /// -->
                                 @php
                                 $subsubcategories =
@@ -32,7 +35,7 @@ $categories = App\Models\Category::orderBy('category_name_en','ASC')->get();
                                 @endphp
                                 @foreach($subsubcategories as $subsubcategory)
                                 <ul class="links list-unstyled">
-                                    <li><a href="#">@if(session()->get('language') == 'hindi')
+                                    <li><a href="{{url('subsubcategory/product/'.$subsubcategory->id.'/'.$subsubcategory->subsubcategory_name_en)}}">@if(session()->get('language') == 'hindi')
                                             {{$subsubcategory->subsubcategory_name_hin}} @else
                                             {{$subsubcategory->subsubcategory_name_en}}
                                             @endif</a></li>

@@ -2,7 +2,7 @@
 @section('content')
 
 @section('title')
-Tag Wise Product
+SubCategory Wise Product
 @endsection
 <div class="breadcrumb">
     <div class="container">
@@ -54,7 +54,7 @@ Tag Wise Product
                                                 @endphp
                                                 @foreach($subcategories as $subcategory)
                                                 <ul>
-                                                    <li><a href="#">@if(session()->get('language') == 'hindi')
+                                                    <li><a href="{{url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug_en)}}">@if(session()->get('language') == 'hindi')
                                                             {{$subcategory->subcategory_name_hin}} @else
                                                             {{$subcategory->subcategory_name_en}} @endif</a></li>
                                                 </ul>
