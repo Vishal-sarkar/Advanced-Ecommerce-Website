@@ -147,3 +147,6 @@ Route::prefix('slider')->group(function(){
 
     // Frontend subsubcategory wise Product Details Page url
     Route::get('subsubcategory/product/{subsubcat_id}/{slug}', [IndexController::class, 'SubSubCatWiseProduct']);
+
+    // Product View Model with Ajax
+    Route::get('product/view/modal/{id}', [IndexController::class, 'ProductViewAjax']);
