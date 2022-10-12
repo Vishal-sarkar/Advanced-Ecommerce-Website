@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\frontend\LanguageController;
 use App\Http\Controllers\frontend\CartController;
+use App\Http\Controllers\User\WishlistController;
 
 
 /*
@@ -160,3 +161,6 @@ Route::prefix('slider')->group(function(){
 
     // get Data from mini cart 
     Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMiniCart']);
+
+     // Add to wishlist
+    Route::post('/add-to-wishlist/{product_id}', [WishlistController::class, 'AddToWishlist']);
