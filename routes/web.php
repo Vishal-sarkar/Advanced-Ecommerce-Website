@@ -12,6 +12,7 @@ use App\Models\User;
 
 use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\frontend\LanguageController;
+use App\Http\Controllers\frontend\CartController;
 
 
 /*
@@ -150,3 +151,12 @@ Route::prefix('slider')->group(function(){
 
     // Product View Model with Ajax
     Route::get('product/view/modal/{id}', [IndexController::class, 'ProductViewAjax']);
+
+    // Add to Cart Store Data
+    Route::post('/cart/data/store/{id}', [CartController::class, 'AddToCart']);
+
+    // get Data from mini cart 
+    Route::get('/product/mini/Cart', [CartController::class, 'AddMiniCart']);
+
+    // get Data from mini cart 
+    Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMiniCart']);
