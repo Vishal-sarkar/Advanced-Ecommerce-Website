@@ -23,4 +23,26 @@ class CartPageController extends Controller
             'cartTotal' => round((int)$cartTotal),
         ));
     }
+
+    public function RemoveCartProduct($rowId){
+        Cart::remove($rowId);
+        return response()->json(['success' => 'Cart Deleted Successfully']);
+        
+    }
+    // cart increment
+    public function CartIncrement($rowId){
+        $row = Cart::get($rowId);
+        Cart::update($rowId, $row->qty + 1);
+        return response()->json('increment');
+        
+    } //end method
+
+    // cart increment
+    public function CartDecrement($rowId){
+        $row = Cart::get($rowId);
+        Cart::update($rowId, $row->qty - 1);
+        return response()->json('decrement');
+        
+    } //end method
+
 }
