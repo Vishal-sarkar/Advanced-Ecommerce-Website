@@ -202,9 +202,22 @@ Route::prefix('coupons')->group(function(){
 
    //  Admin Shipping All Routes
 Route::prefix('shipping')->group(function(){
-    Route::get('/view', [ShippingAreaController::class, 'DivisionView'])->name('manage-division');
-    Route::post('/store', [ShippingAreaController::class, 'DivisionStore'])->name('division.store');
-    Route::get('/edit/{id}', [ShippingAreaController::class, 'DivisionEdit'])->name('division.edit');
-    Route::post('/update/{id}', [ShippingAreaController::class, 'DivisionUpdate'])->name('division.update');
-    Route::get('/delete/{id}', [ShippingAreaController::class, 'DivisionDelete'])->name('division.delete');
+    Route::get('division/view', [ShippingAreaController::class, 'DivisionView'])->name('manage-division');
+    Route::post('division/store', [ShippingAreaController::class, 'DivisionStore'])->name('division.store');
+    Route::get('division/edit/{id}', [ShippingAreaController::class, 'DivisionEdit'])->name('division.edit');
+    Route::post('division/update/{id}', [ShippingAreaController::class, 'DivisionUpdate'])->name('division.update');
+    Route::get('division/delete/{id}', [ShippingAreaController::class, 'DivisionDelete'])->name('division.delete');
+// Ship District
+    Route::get('district/view', [ShippingAreaController::class, 'DistrictView'])->name('manage-district');
+    Route::post('district/store', [ShippingAreaController::class, 'DistrictStore'])->name('district.store');
+    Route::get('district/edit/{id}', [ShippingAreaController::class, 'DistrictEdit'])->name('district.edit');
+    Route::post('district/update/{id}', [ShippingAreaController::class, 'DistrictUpdate'])->name('district.update');
+    Route::get('district/delete/{id}', [ShippingAreaController::class, 'DistrictDelete'])->name('district.delete');
+    // Ship State
+    Route::get('state/view', [ShippingAreaController::class, 'StateView'])->name('manage-state');
+    // Route::get('/district/ajax/{division_id}', [ShippingAreaController::class, 'GetDistrictName']);
+    Route::post('state/store', [ShippingAreaController::class, 'StateStore'])->name('state.store');
+    Route::get('district/edit/{id}', [ShippingAreaController::class, 'DistrictEdit'])->name('district.edit');
+    Route::post('district/update/{id}', [ShippingAreaController::class, 'DistrictUpdate'])->name('district.update');
+    Route::get('district/delete/{id}', [ShippingAreaController::class, 'DistrictDelete'])->name('district.delete');
 });
