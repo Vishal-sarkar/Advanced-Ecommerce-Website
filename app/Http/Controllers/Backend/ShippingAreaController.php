@@ -128,7 +128,7 @@ class ShippingAreaController extends Controller
     public function StateView(){
         $divisions = ShipDivision::orderBy('division_name', 'DESC')->get();
         $districts = ShipDistrict::orderBy('district_name', 'DESC')->get();
-        $states = ShipState::orderBy('id', 'DESC')->get();
+        $states = ShipState::with('division','district')->orderBy('id', 'DESC')->get();
         return view('backend.ship.state.view_state', compact('divisions','districts','states'));
     }
 
@@ -152,8 +152,49 @@ class ShippingAreaController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    // public function GetDistrictName($division_id){
-    //     $district = ShipDistrict::where('division_id', $division_id)->orderBy('district_name','DESC');
-    //     return json_encode($district);
-    // }
+    public function GetDistrictName($division_id){
+        $district = ShipDistrict::where('division_id',$division_id)->orderBy('district_name','DESC')->get();
+        return json_encode($district);
+    }
+
+    public function StateEdit($id){
+        $state = ShipState::findOrFail($id);
+        $divisions = ShipDivision::orderBy('division_name', 'DESC')->get();
+        $districts = ShipDistrict::orderBy('district_name', 'DESC')->get();
+
+
+        return view('backend.ship.state.edit_state', compact('districts','divisions','state'));
+    }
+
+    public function StateUpdate(Request $request, $id){
+        $request->validate([
+            'division_id' => 'required',
+            'district_id' => 'required',
+            'state_name' => 'required',
+        ]);
+        
+        ShipState::findOrFail($id)->update([
+            'division_id' => $request->division_id,
+            'district_id' => $request->district_id,
+            'state_name' => $request->state_name,
+            'updated_at' => Carbon::now(),
+        ]);
+        $notification = array(
+            'message' => 'State Updated successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('manage-state')->with($notification);
+        
+    }
+
+    public function StateDelete($id){
+        $state = ShipState::findOrFail($id)->delete();
+        
+        $notification = array(
+            'message' => 'State Deleted successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }
+

@@ -215,9 +215,9 @@ Route::prefix('shipping')->group(function(){
     Route::get('district/delete/{id}', [ShippingAreaController::class, 'DistrictDelete'])->name('district.delete');
     // Ship State
     Route::get('state/view', [ShippingAreaController::class, 'StateView'])->name('manage-state');
-    // Route::get('/district/ajax/{division_id}', [ShippingAreaController::class, 'GetDistrictName']);
+    Route::get('/district/ajax/{division_id}', [ShippingAreaController::class, 'GetDistrictName']);
     Route::post('state/store', [ShippingAreaController::class, 'StateStore'])->name('state.store');
-    Route::get('district/edit/{id}', [ShippingAreaController::class, 'DistrictEdit'])->name('district.edit');
-    Route::post('district/update/{id}', [ShippingAreaController::class, 'DistrictUpdate'])->name('district.update');
-    Route::get('district/delete/{id}', [ShippingAreaController::class, 'DistrictDelete'])->name('district.delete');
+    Route::get('state/edit/{id}', [ShippingAreaController::class, 'StateEdit'])->name('state.edit');
+    Route::post('state/update/{id}', [ShippingAreaController::class, 'StateUpdate'])->name('state.update');
+    Route::get('state/delete/{id}', [ShippingAreaController::class, 'StateDelete'])->name('state.delete');
 });
