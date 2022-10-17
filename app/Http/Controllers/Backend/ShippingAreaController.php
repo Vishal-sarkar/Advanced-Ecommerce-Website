@@ -157,6 +157,11 @@ class ShippingAreaController extends Controller
         return json_encode($district);
     }
 
+    public function GetStateName($district_id){
+        $state = ShipState::where('district_id',$district_id)->orderBy('state_name','DESC')->get();
+        return json_encode($state);
+    }
+
     public function StateEdit($id){
         $state = ShipState::findOrFail($id);
         $divisions = ShipDivision::orderBy('division_name', 'DESC')->get();

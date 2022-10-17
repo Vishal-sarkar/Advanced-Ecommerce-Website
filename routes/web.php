@@ -17,6 +17,7 @@ use App\Http\Controllers\frontend\LanguageController;
 use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\CartPageController;
+use App\Http\Controllers\User\CheckoutController;
 
 
 
@@ -216,8 +217,18 @@ Route::prefix('shipping')->group(function(){
     // Ship State
     Route::get('state/view', [ShippingAreaController::class, 'StateView'])->name('manage-state');
     Route::get('/district/ajax/{division_id}', [ShippingAreaController::class, 'GetDistrictName']);
+    Route::get('/state/ajax/{district_id}', [ShippingAreaController::class, 'GetStateName']);
     Route::post('state/store', [ShippingAreaController::class, 'StateStore'])->name('state.store');
     Route::get('state/edit/{id}', [ShippingAreaController::class, 'StateEdit'])->name('state.edit');
     Route::post('state/update/{id}', [ShippingAreaController::class, 'StateUpdate'])->name('state.update');
     Route::get('state/delete/{id}', [ShippingAreaController::class, 'StateDelete'])->name('state.delete');
 });
+
+//  Frntend coupon option
+Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
+Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
+Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
+
+//  Frntend Checkout option
+Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
+
