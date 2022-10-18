@@ -45,11 +45,12 @@ My Checkout Page
                                         <hr>
                                         <!-- guest-login -->
                                         <div class="col-md-6 col-sm-6 already-registered-login">
-                                            <form class="register-form" role="form">
+                                            <form class="register-form" action="{{route('checkout.store')}}" method="POST">
+                                                @csrf
                                                 <div class="form-group">
                                                     <label class="info-title" for="exampleInputEmail1"><b>Name</b>
                                                         <span>*</span></label>
-                                                    <input type="text"
+                                                    <input type="text" name="shipping_name"
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" placeholder="Full Name"
                                                         value="{{Auth::user()->name}}" required="">
@@ -58,7 +59,7 @@ My Checkout Page
                                                 <div class="form-group">
                                                     <label class="info-title" for="exampleInputEmail1"><b>Email</b>
                                                         <span>*</span></label>
-                                                    <input type="email"
+                                                    <input type="email" name="shipping_email"
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" placeholder="email@gmail.com"
                                                         value="{{Auth::user()->email}}" required="">
@@ -67,7 +68,7 @@ My Checkout Page
                                                 <div class="form-group">
                                                     <label class="info-title" for="exampleInputEmail1"><b>Phone</b>
                                                         <span>*</span></label>
-                                                    <input type="number"
+                                                    <input type="number" name="shipping_phone"
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" placeholder="Phone"
                                                         value="{{Auth::user()->phone}}" required="">
@@ -76,83 +77,81 @@ My Checkout Page
                                                 <div class="form-group">
                                                     <label class="info-title" for="exampleInputEmail1"><b>Post Code</b>
                                                         <span>*</span></label>
-                                                    <input type="text"
+                                                    <input type="text" name="post_code"
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" placeholder="Post Code" required="">
                                                 </div><!-- // End form group -->
                                                 <button type="submit"
-                                                    class="btn-upper btn btn-primary checkout-page-button">Login</button>
-                                            </form>
+                                                    class="btn-upper btn btn-primary checkout-page-button">Payment
+                                                    Step</button>
                                         </div>
                                         <!-- guest-login -->
 
                                         <!-- already-registered-login -->
                                         <div class="col-md-6 col-sm-6 already-registered-login">
-                                            <form class="register-form" role="form">
-                                                @csrf
 
-                                                <div class="form-group">
-                                                    <h5><b>Division Select </b><span class="text-danger">*</span></h5>
-                                                    <div class="controls">
-                                                        <select name="division_id" class="form-control">
-                                                            <option value="" selected="" disabled="">Select Division
-                                                            </option>
-                                                            @foreach($divisions as $div)
-                                                            <option value="{{$div->id}}">{{$div->division_name}}
-                                                            </option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('division_id')
-                                                        <span class="text-danger">
-                                                            <strong>{{$message}}</strong>
-                                                        </span>
-                                                        @enderror
-                                                        <div class="help-block"></div>
-                                                    </div>
+
+                                            <div class="form-group">
+                                                <h5><b>Division Select </b><span class="text-danger">*</span></h5>
+                                                <div class="controls">
+                                                    <select name="division_id" class="form-control">
+                                                        <option value="" selected="" disabled="">Select Division
+                                                        </option>
+                                                        @foreach($divisions as $div)
+                                                        <option value="{{$div->id}}">{{$div->division_name}}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('division_id')
+                                                    <span class="text-danger">
+                                                        <strong>{{$message}}</strong>
+                                                    </span>
+                                                    @enderror
+                                                    <div class="help-block"></div>
                                                 </div>
+                                            </div>
 
-                                                <div class="form-group">
-                                                    <h5><b>District Select </b><span class="text-danger">*</span></h5>
-                                                    <div class="controls">
-                                                        <select name="district_id" class="form-control">
-                                                            <option value="" selected="" disabled="">Select District
-                                                            </option>
+                                            <div class="form-group">
+                                                <h5><b>District Select </b><span class="text-danger">*</span></h5>
+                                                <div class="controls">
+                                                    <select name="district_id" class="form-control">
+                                                        <option value="" selected="" disabled="">Select District
+                                                        </option>
 
-                                                        </select>
-                                                        @error('district_id')
-                                                        <span class="text-danger">
-                                                            <strong>{{$message}}</strong>
-                                                        </span>
-                                                        @enderror
-                                                        <div class="help-block"></div>
-                                                    </div>
+                                                    </select>
+                                                    @error('district_id')
+                                                    <span class="text-danger">
+                                                        <strong>{{$message}}</strong>
+                                                    </span>
+                                                    @enderror
+                                                    <div class="help-block"></div>
                                                 </div>
+                                            </div>
 
-                                                <div class="form-group">
-                                                    <h5><b>State Name </b><span class="text-danger">*</span></h5>
-                                                    <div class="controls">
-                                                        <select name="state_id" class="form-control">
-                                                            <option value="" selected="" disabled="">Select State
-                                                            </option>
+                                            <div class="form-group">
+                                                <h5><b>State Name </b><span class="text-danger">*</span></h5>
+                                                <div class="controls">
+                                                    <select name="state_id" class="form-control">
+                                                        <option value="" selected="" disabled="">Select State
+                                                        </option>
 
-                                                        </select>
-                                                        @error('state_id')
-                                                        <span class="text-danger">
-                                                            <strong>{{$message}}</strong>
-                                                        </span>
-                                                        @enderror
-                                                        <div class="help-block"></div>
-                                                    </div>
+                                                    </select>
+                                                    @error('state_id')
+                                                    <span class="text-danger">
+                                                        <strong>{{$message}}</strong>
+                                                    </span>
+                                                    @enderror
+                                                    <div class="help-block"></div>
                                                 </div>
+                                            </div>
 
-                                                <div class="form-group">
-                                                    <label class="info-title" for="exampleInputEmail1"><b>Notes</b>
-                                                        <span>*</span></label>
-                                                    <textarea name="notes" id="" cols="30" rows="4" class="form-control"
-                                                        placeholder="Notes"></textarea>
-                                                </div><!-- // End form group -->
+                                            <div class="form-group">
+                                                <label class="info-title" for="exampleInputEmail1"><b>Notes</b>
+                                                    <span>*</span></label>
+                                                <textarea name="notes" id="" cols="30" rows="4" class="form-control"
+                                                    placeholder="Notes"></textarea>
+                                            </div><!-- // End form group -->
 
-                                            </form>
                                         </div>
                                         <!-- already-registered-login -->
 
@@ -231,6 +230,38 @@ My Checkout Page
                     </div>
                     <!-- checkout-progress-sidebar -->
                 </div>
+
+                <div class="col-md-4">
+                    <!-- checkout-progress-sidebar -->
+                    <div class="checkout-progress-sidebar ">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="unicase-checkout-title">Your Checkout Details</h4>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="">Stripe</label>
+                                        <input type="radio" name="payment_method" value="stripe">
+                                        <img src="{{asset('frontend/assets/images/payments/4.png')}}">
+                                    </div><!-- end of col-md-4 -->
+                                    <div class="col-md-4">
+                                        <label for="">Card</label>
+                                        <input type="radio" name="payment_method" value="card">
+                                        <img src="{{asset('frontend/assets/images/payments/3.png')}}">
+                                    </div><!-- end of col-md-4 -->
+                                    <div class="col-md-4">
+                                        <label for="">Cash</label>
+                                        <input type="radio" name="payment_method" value="cash">
+                                        <img src="{{asset('frontend/assets/images/payments/2.png')}}">
+                                    </div><!-- end of col-md-4 -->
+                                </div><!-- end of row -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- checkout-progress-sidebar -->
+                </div>
+                </form>
             </div><!-- /.row -->
         </div><!-- /.checkout-box -->
     </div><!-- /.container -->
@@ -258,7 +289,7 @@ $(document).ready(function() {
                             '<option value="' + value.id + '">' + value
                             .district_name + '</option>');
                     });
-                    
+
 
                 },
             });
@@ -278,9 +309,9 @@ $(document).ready(function() {
                     var d = $('select[name="state_id"]').empty();
                     $.each(data, function(key, value) {
                         $('select[name="state_id"]').append(
-                        '<option value="' + value.id + '">' + value
-                        .state_name + '</option>');
-                });
+                            '<option value="' + value.id + '">' + value
+                            .state_name + '</option>');
+                    });
                 },
             });
         } else {
@@ -288,7 +319,7 @@ $(document).ready(function() {
         }
     });
 
-    
+
 });
 </script>
 

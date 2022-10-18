@@ -18,6 +18,7 @@ use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\CartPageController;
 use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\StripeController;
 
 
 
@@ -170,6 +171,8 @@ Route::prefix('slider')->group(function(){
      // Add to wishlist
     Route::post('/add-to-wishlist/{product_id}', [WishlistController::class, 'AddToWishlist']);
 
+
+    //Guarded Frontend route 
     Route::group(['prefix'=>'user','middleware' => ['user','auth'],'namespace' => 'user'], function(){
      // wishlist page
     Route::get('/wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
@@ -180,9 +183,12 @@ Route::prefix('slider')->group(function(){
      // Remove wishlist product
     Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
 
-     // Add product to myCart
+    Route::post('/stripe/order', [StripeController::class, 'StripeOrder'])->name('stripe.order');
+    
     
     });
+
+
 
     // My Cart page all route
     Route::get('/mycart', [CartPageController::class, 'MyCart'])->name('mycart');
@@ -231,4 +237,6 @@ Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
 
 //  Frntend Checkout option
 Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
+
+Route::post('/checkout/store', [CheckoutController::class, 'CheckoutStore'])->name('checkout.store');
 
