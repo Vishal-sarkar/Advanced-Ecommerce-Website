@@ -19,7 +19,8 @@ use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\CartPageController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\StripeController;
-
+use App\Http\Controllers\User\AllUserController;
+use App\Http\Controllers\User\CashController;
 
 
 /*
@@ -172,21 +173,28 @@ Route::prefix('slider')->group(function(){
     Route::post('/add-to-wishlist/{product_id}', [WishlistController::class, 'AddToWishlist']);
 
 
-    //Guarded Frontend route 
-    Route::group(['prefix'=>'user','middleware' => ['user','auth'],'namespace' => 'user'], function(){
+//Guarded Frontend route 
+Route::group(['prefix'=>'user','middleware' => ['user','auth'],'namespace' => 'user'], function(){
      // wishlist page
     Route::get('/wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
 
-     // wishlist page
+    // wishlist page
     Route::get('/get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
 
-     // Remove wishlist product
+    // Remove wishlist product
     Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
 
     Route::post('/stripe/order', [StripeController::class, 'StripeOrder'])->name('stripe.order');
     
+    Route::post('/cash/order', [CashController::class, 'CashOrder'])->name('cash.order');
+
+    Route::get('/my/orders', [AllUserController::class, 'MyOrders'])->name('my.orders');
+
+    Route::get('/order_details/{order_id}', [AllUserController::class, 'OrderDetails']);
+
+    Route::get('/invoice_download/{order_id}', [AllUserController::class, 'InvoiceDownload']);
     
-    });
+});
 
 
 

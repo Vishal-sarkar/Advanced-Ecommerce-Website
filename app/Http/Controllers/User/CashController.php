@@ -13,10 +13,9 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderMail;
 
-
-class StripeController extends Controller
+class CashController extends Controller
 {
-    public function StripeOrder(Request $request){
+    public function CashOrder(Request $request){
 
         if (Session::has('coupon')) {
             $total_amount = session()->get('coupon')['total_amount'];
@@ -25,18 +24,6 @@ class StripeController extends Controller
         }
         
 
-
-        \Stripe\Stripe::setApiKey('sk_test_51LuGTiBENXu7Mb89CPHg46SQAdSiRbiHeNF3y8U3WKzhYpxljt2buxP35su14lclzZ7vUYadPKzXwkIfRTPZHxD400LD5qnQYz');
-        
-        $token = $_POST['stripeToken'];
-
-        $charge = \Stripe\Charge::create([
-        'amount' => $total_amount*100,
-        'currency' => 'usd',
-        'description' => 'Easy Online Store',
-        'source' => $token,
-        'metadata' => ['order_id' => uniqid()],
-        ]);
 
         // dd($charge);
 
@@ -51,13 +38,12 @@ class StripeController extends Controller
             'post_code' =>$request->post_code,
             'notes' =>$request->notes,
 
-            'payment_type' => 'Stripe',
-            'payment_method' => 'Stripe',
-            'payment_type' =>$charge->payment_method,
-            'transaction_id' =>$charge->balance_transaction,
-            'currency' =>$charge->currency,
+            'payment_type' => 'Cash On Delivery',
+            'payment_method' => 'Cash On Delivery',
+            
+            'currency' => 'usd',
             'amount' =>$total_amount,
-            'order_number' =>$charge->metadata->order_id,
+
             'invoice_no' => 'EOS'.mt_rand(10000000,99999999),
             'order_date' => Carbon::now()->format('d F Y'),
             'order_month' => Carbon::now()->format('F'),
