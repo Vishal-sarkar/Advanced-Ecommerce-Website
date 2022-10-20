@@ -76,30 +76,16 @@
                                             style="color: white;"></i> Invoice </a>
 
                                 </td>
-
                             </tr>
                             @endforeach
-
-
-
-
-
                         </tbody>
-
                     </table>
-
                 </div>
-
-
-
-
-
             </div> <!-- / end col md 8 -->
 
-
-
-
+            
         </div>
+
     </div>
 </div>
 

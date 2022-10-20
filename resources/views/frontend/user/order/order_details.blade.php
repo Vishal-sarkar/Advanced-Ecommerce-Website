@@ -220,6 +220,24 @@
             </div> <!-- / end col md 8 -->
 
         </div> <!-- // END ORDER ITEM ROW -->
+        <div class="row">
+            <div class="col-md-2">
+
+            </div>
+
+            <div class="col-md-10">
+
+                @if($order->status !== "delivered")
+
+                @else
+                <div class="form-group">
+                    <label for="label"> Order return Reason:</label>
+                    <textarea name="return_reason" id="" cols="5" rows="5" class="form-control">Return Reason</textarea>
+                </div>
+                @endif
+            </div>
+
+        </div> <!-- // END ORDER ITEM ROW -->
     </div>
 </div>
 
