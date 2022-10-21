@@ -124,7 +124,29 @@
                             </th>
                         </tr>
 
+                        <tr>
+                            <th> Action : </th>
+                            <th style="padding:10px;">    
 
+                                @if($order->status == 'Pending')
+                                <a href="{{route('pending-confirm',$order->id)}}" class="btn btn-sm btn-success" id="confirm">Confirmed Order</a>
+                                
+                                @elseif($order->status == 'confirm')
+                                <a href="{{route('confirm-processing',$order->id)}}" class="btn btn-sm btn-success" id="processing">Processing Order</a>
+                                
+
+                                @elseif($order->status == 'processing')
+                                <a href="{{route('processing-picked',$order->id)}}" class="btn btn-sm btn-success" id="picked">Picked Order</a>
+
+                                @elseif($order->status == 'picked')
+                                <a href="{{route('picked-shipped',$order->id)}}" class="btn btn-sm btn-success" id="shipped">Shipped Order</a>
+
+                                @elseif($order->status == 'shipped')
+                                <a href="{{route('shipped-delivered',$order->id)}}" class="btn btn-sm btn-success" id="delivered">Delivered Order</a>
+
+                                @endif
+                            </th>
+                        </tr>
 
                     </table>
                 </div>

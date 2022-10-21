@@ -11,6 +11,8 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\ShippingAreaController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\ReportController;
+
 use App\Models\User;
 
 use App\Http\Controllers\frontend\IndexController;
@@ -194,7 +196,13 @@ Route::group(['prefix'=>'user','middleware' => ['user','auth'],'namespace' => 'u
     Route::get('/order_details/{order_id}', [AllUserController::class, 'OrderDetails']);
 
     Route::get('/invoice_download/{order_id}', [AllUserController::class, 'InvoiceDownload']);
+
+    Route::post('/return/order/{order_id}', [AllUserController::class, 'ReturnOrder'])->name('return.order');
     
+    Route::get('/return/order/list', [AllUserController::class, 'ReturnOrderList'])->name('return.order.list');
+
+    Route::get('/cancel/order/list', [AllUserController::class, 'CancelOrderList'])->name('cancel.order.list');
+
 });
 
 
@@ -265,5 +273,28 @@ Route::prefix('orders')->group(function(){
     Route::get('/delivered/orders', [OrderController::class, 'DeliveredOrders'])->name('delivered-orders');
 
     Route::get('/cancel/orders', [OrderController::class, 'CancelOrders'])->name('cancel-orders');
+    
+    Route::get('/pending/confirm/{order_id}', [OrderController::class, 'PendingToConfirm'])->name('pending-confirm');
+
+    Route::get('/confirm/processing/{order_id}', [OrderController::class, 'ConfirmToPsrocessing'])->name('confirm-processing');
+
+    Route::get('/processing/picked/{order_id}', [OrderController::class, 'PsrocessingToPicked'])->name('processing-picked');
+
+    Route::get('/picked/shipped/{order_id}', [OrderController::class, 'PickedToShipped'])->name('picked-shipped');
+
+    Route::get('/shipped/delivered/{order_id}', [OrderController::class, 'ShippedToDelivered'])->name('shipped-delivered');
+
+    Route::get('/invoice/download/{order_id}', [OrderController::class, 'AdminInvoiceDownload'])->name('invoice.download');
+
 });
 
+Route::prefix('reports')->group(function(){
+    Route::get('/all/reports', [ReportController::class, 'ReportView'])->name('all-reports');
+
+    Route::post('/search/by/date', [ReportController::class, 'ReporthByDate'])->name('search-by-date');
+
+    Route::post('/search/by/month', [ReportController::class, 'ReporthByMonth'])->name('search-by-month');
+
+    Route::post('/search/by/year', [ReportController::class, 'ReporthByYear'])->name('search-by-year');
+
+});
