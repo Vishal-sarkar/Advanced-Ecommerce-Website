@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\ShippingAreaController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ReportController;
+use App\Http\Controllers\Backend\Blogcontroller;
 
 use App\Models\User;
 
@@ -297,4 +298,23 @@ Route::prefix('reports')->group(function(){
 
     Route::post('/search/by/year', [ReportController::class, 'ReporthByYear'])->name('search-by-year');
 
+});
+
+// Admin Get All User Routes
+Route::prefix('alluser')->group(function(){
+    Route::get('/all/users', [AdminProfileController::class, 'AllUsers'])->name('all-users');
+
+    
+});
+
+// Admin Reports Routes
+Route::prefix('blog')->group(function(){
+    Route::get('/category', [Blogcontroller::class, 'BlogCategory'])->name('blog.category');
+
+    Route::post('/category/store', [Blogcontroller::class, 'BlogCategoryStore'])->name('blogcategory.store');
+    Route::get('/category/edit/{id}', [Blogcontroller::class, 'BlogCategoryEdit'])->name('blog.category.edit');
+    Route::post('/category/store', [Blogcontroller::class, 'BlogCategoryStore'])->name('blogcategory.store');
+
+
+    
 });
