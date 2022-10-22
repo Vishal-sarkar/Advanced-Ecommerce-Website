@@ -310,10 +310,10 @@ Route::prefix('alluser')->group(function(){
 // Admin Reports Routes
 Route::prefix('blog')->group(function(){
     Route::get('/category', [Blogcontroller::class, 'BlogCategory'])->name('blog.category');
-
     Route::post('/category/store', [Blogcontroller::class, 'BlogCategoryStore'])->name('blogcategory.store');
     Route::get('/category/edit/{id}', [Blogcontroller::class, 'BlogCategoryEdit'])->name('blog.category.edit');
-    Route::post('/category/store', [Blogcontroller::class, 'BlogCategoryStore'])->name('blogcategory.store');
+    Route::post('/category/update', [Blogcontroller::class, 'BlogCategoryUpdate'])->name('blogcategory.update');
+    Route::get('/category/delete{id}', [Blogcontroller::class, 'BlogCategoryDelete'])->name('blog.category.delete');
 
 
     

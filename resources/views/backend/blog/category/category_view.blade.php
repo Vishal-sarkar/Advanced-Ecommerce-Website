@@ -34,7 +34,7 @@
                                         <td>{{$item->blog_category_name_hin}}</td>
                                         <td>
                                             <a href="{{route('blog.category.edit',$item->id)}}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
-                                            <a href="{{route('category.delete',$item->id)}}" class="btn btn-danger" id="delete" title="Delete Data"><i class="fa fa-trash"></i</a>
+                                            <a href="{{route('blog.category.delete',$item->id)}}" class="btn btn-danger" id="delete" title="Delete Data"><i class="fa fa-trash"></i</a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -62,7 +62,7 @@
                                 <div class="form-group">
                                     <h5>Blog Category English<span class="text-danger">*</span></h5>
                                     <div class="controls">
-                                        <input type="text" name="blog_category_name_en" class="form-control">
+                                        <input type="text" name="blog_category_name_en" class="form-control" required="">
                                     </div>
                                     @error('blog_category_name_en')
                                     <span class="text-danger" >
@@ -76,7 +76,7 @@
                                 <div class="form-group">
                                     <h5>Blog Category Hindi<span class="text-danger">*</span></h5>
                                     <div class="controls">
-                                        <input type="text" name="blog_category_name_hin" class="form-control">
+                                        <input type="text" name="blog_category_name_hin" class="form-control" required="">
                                     </div>
                                     @error('blog_category_name_hin')
                                     <span class="text-danger">
