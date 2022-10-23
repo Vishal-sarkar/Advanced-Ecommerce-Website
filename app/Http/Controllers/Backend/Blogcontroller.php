@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Blog\BlogPostCategory;
+use App\Models\Blog\BlogPost;
 use Carbon\Carbon;
-
+use Image;
 
 class Blogcontroller extends Controller
 {
@@ -75,6 +76,52 @@ class Blogcontroller extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+
+    /////////////////////// Blog Post All Methods //////////////////////////
+
+    public function ListBlogPost(){
+        $blogpost = BlogPost::with('CategoryId')->latest()->get();
+        return view('backend.blog.post.post_list', compact('blogpost'));
+    }
+    
+    public function AddBlogPost(){
+        $blogCategory = BlogPostCategory::latest()->get();
+        $blogpost = BlogPost::latest()->get();
+        return view('backend.blog.post.post_add', compact('blogpost','blogCategory'));
+    }
+
+    public function BlogPostStore(Request $request){
+        $request->validate([
+            'post_title_en' => 'required',
+            'post_title_hin' => 'required',
+            'post_image' => 'required',
+        ],[
+            'post_title_en.required' => 'Input Post Title english',
+            'post_title_hin.required' => 'Input Post Title Hindi',
+        ]);
+        
+        $image = $request->file('post_image');
+        $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+        Image::make($image)->resize(780,433)->save('upload/post/'.$name_gen);
+        $save_url = 'upload/post/'.$name_gen;
+        BlogPost::insert([
+            'category_id' => $request->category_id,
+            'post_title_en' => $request->post_title_en,
+            'post_title_hin' => $request->post_title_hin,
+            'post_slug_en' => strtolower(str_replace(' ','-',$request->post_title_en)),
+            'post_slug_hin' => str_replace(' ','-',$request->post_title_hin),
+            'post_image' => $save_url,
+            'post_details_en' => $request->post_details_en,
+            'post_details_hin' => $request->post_details_hin,
+            'created_at' => Carbon::now(),
+        ]);
+        $notification = array(
+            'message' => 'Blog Post Inserted successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('list.post')->with($notification);
     }
     
 }

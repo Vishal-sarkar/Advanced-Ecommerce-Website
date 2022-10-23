@@ -13,12 +13,15 @@ use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\Blogcontroller;
+use App\Http\Controllers\Backend\SiteSettingController;
 
 use App\Models\User;
 
 use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\frontend\LanguageController;
 use App\Http\Controllers\frontend\CartController;
+use App\Http\Controllers\frontend\HomeBlogcontroller;
+
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\CartPageController;
 use App\Http\Controllers\User\CheckoutController;
@@ -314,7 +317,22 @@ Route::prefix('blog')->group(function(){
     Route::get('/category/edit/{id}', [Blogcontroller::class, 'BlogCategoryEdit'])->name('blog.category.edit');
     Route::post('/category/update', [Blogcontroller::class, 'BlogCategoryUpdate'])->name('blogcategory.update');
     Route::get('/category/delete{id}', [Blogcontroller::class, 'BlogCategoryDelete'])->name('blog.category.delete');
-
-
     
+    // Admin view Blog Post Route
+    Route::get('/list/post', [Blogcontroller::class, 'ListBlogPost'])->name('list.post');
+    Route::get('/add/post', [Blogcontroller::class, 'AddBlogPost'])->name('add.post');
+    Route::post('/post/store', [Blogcontroller::class, 'BlogPostStore'])->name('post-store');
+
+});
+
+// Frontend Blog Show Routes
+Route::get('/blog', [HomeBlogcontroller::class, 'HomeBlog'])->name('home.blog');
+
+Route::get('/post/details/{id}', [HomeBlogcontroller::class, 'DetailsBlogPost'])->name('post.details');
+
+Route::get('/blog/category/post/{category_id}', [HomeBlogcontroller::class, 'HomeBlogCatPost']);
+
+Route::prefix('setting')->group(function(){
+    Route::get('/site', [SiteSettingController::class, 'SiteSetting'])->name('site.setting');
+
 });
