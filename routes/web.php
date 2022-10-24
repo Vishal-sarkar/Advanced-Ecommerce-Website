@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\Blogcontroller;
 use App\Http\Controllers\Backend\SiteSettingController;
+use App\Http\Controllers\Backend\ReturnController;
 
 use App\Models\User;
 
@@ -342,4 +343,11 @@ Route::prefix('setting')->group(function(){
     Route::get('/seo', [SiteSettingController::class, 'SeoSetting'])->name('seo.setting');
 
     Route::post('/seo/update', [SiteSettingController::class, 'SeoSettingUpdate'])->name('update.seosetting');
+});
+
+Route::prefix('return')->group(function(){
+    Route::get('/admin/request', [ReturnController::class, 'ReturnRequest'])->name('return.request');
+    Route::get('/admin/return/approve/{order_id}', [ReturnController::class, 'ReturnRequestApprove'])->name('return.approve');
+
+    Route::get('/admin/all/request', [ReturnController::class, 'ReturnAllRequest'])->name('all.request');
 });
