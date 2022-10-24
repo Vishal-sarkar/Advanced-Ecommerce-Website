@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+@php
+$seo = App\Models\Seo::find(1);
+@endphp
 
 <head>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="description" content="">
+    <meta name="description" content="{{$seo->meta_description}}">
     <meta name="csrf-token" content="{{csrf_token()}}">
     <meta name="author" content="">
-    <meta name="keywords" content="MediaCenter, Template, eCommerce">
+    <meta name="keywords" content="{{$seo->meta_keyword}}">
     <meta name="robots" content="all">
+
+    <script>
+        {{$seo->google_analytics}}
+    </script>
+
     <title>@yield('title')</title>
+
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
@@ -557,9 +566,9 @@
             url: "/cart-remove/" + id,
             dataType: "json",
             success: function(data) {
-            couponCalculation();
-            $('#couponField').show();
-            $('#coupon_name').val('');
+                couponCalculation();
+                $('#couponField').show();
+                $('#coupon_name').val('');
 
                 cart();
                 miniCart();
@@ -598,7 +607,7 @@
             type: 'GET',
             url: "/cart-increment/" + rowId,
             dataType: 'json',
-            success:function(data) {
+            success: function(data) {
                 couponCalculation();
                 cart();
                 miniCart();
@@ -613,8 +622,8 @@
             type: 'GET',
             url: "/cart-decrement/" + rowId,
             dataType: 'json',
-            success:function(data) {
-            couponCalculation();
+            success: function(data) {
+                couponCalculation();
                 cart();
                 miniCart();
             }
@@ -625,23 +634,25 @@
 
     <!-- /////// End My Cart Data ////// -->
 
-<!-- //////////// ========== Coupon Apply Start =========== /////////// -->
-<script type="text/javascript">
-function applyCoupon(){
-    var  coupon_name = $('#coupon_name').val();
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        data:{coupon_name:coupon_name},
-        url: "/coupon-apply",
-        success:function(data){
-            couponCalculation();
-            if (data.validity == true) {
-            $('#couponField').hide();
-            }
+    <!-- //////////// ========== Coupon Apply Start =========== /////////// -->
+    <script type="text/javascript">
+    function applyCoupon() {
+        var coupon_name = $('#coupon_name').val();
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                coupon_name: coupon_name
+            },
+            url: "/coupon-apply",
+            success: function(data) {
+                couponCalculation();
+                if (data.validity == true) {
+                    $('#couponField').hide();
+                }
 
-            //  Start Message
-            const Toast = Swal.mixin({
+                //  Start Message
+                const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
 
@@ -662,19 +673,20 @@ function applyCoupon(){
                     })
                 }
                 // end message
-        }
-            
-    })
-}
-function couponCalculation(){
-    $.ajax({
-        type: 'GET',
-        url: "/coupon-calculation",
-        dataType: 'json',
-        success:function(data){
-            if(data.total){
-                $('#couponCalField').html(
-                    `<tr>
+            }
+
+        })
+    }
+
+    function couponCalculation() {
+        $.ajax({
+            type: 'GET',
+            url: "/coupon-calculation",
+            dataType: 'json',
+            success: function(data) {
+                if (data.total) {
+                    $('#couponCalField').html(
+                        `<tr>
                         <th>
                             <div class="cart-sub-total">
                                 Subtotal<span class="inner-left-md">$${data.total}</span>
@@ -684,10 +696,10 @@ function couponCalculation(){
                             </div>
                         </th>
                     </tr>`
-                )
-            }else{
-                $('#couponCalField').html(
-                    `<tr>
+                    )
+                } else {
+                    $('#couponCalField').html(
+                        `<tr>
                         <th>
                             <div class="cart-sub-total inner-left-md">
                                 <button type="submit" onclick="couponRemove()"><i class="fa fa-times"></i></button>
@@ -706,29 +718,29 @@ function couponCalculation(){
                             </div>
                         </th>
                     </tr>`
-                )
+                    )
+                }
             }
-        }
-    })
-}
-couponCalculation();
-</script>
-<!-- //////////// ========== Coupon Apply End =========== /////////// -->
+        })
+    }
+    couponCalculation();
+    </script>
+    <!-- //////////// ========== Coupon Apply End =========== /////////// -->
 
-<!-- //////////// ========== Coupon Remove Start =========== /////////// -->
-<script type="text/javascript">
-    function couponRemove(){
-    $.ajax({
-        type: 'GET',
-        url: "/coupon-remove",
-        dataType: 'json',
-        success:function(data){
-            couponCalculation();
-            $('#couponField').show();
-            $('#coupon_name').val('');
+    <!-- //////////// ========== Coupon Remove Start =========== /////////// -->
+    <script type="text/javascript">
+    function couponRemove() {
+        $.ajax({
+            type: 'GET',
+            url: "/coupon-remove",
+            dataType: 'json',
+            success: function(data) {
+                couponCalculation();
+                $('#couponField').show();
+                $('#coupon_name').val('');
 
-            //  Start Message
-            const Toast = Swal.mixin({
+                //  Start Message
+                const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
 
@@ -749,11 +761,11 @@ couponCalculation();
                     })
                 }
                 // end message
-        }
-    });
-}
-</script>
-<!-- //////////// ========== Coupon Remove End =========== /////////// -->
+            }
+        });
+    }
+    </script>
+    <!-- //////////// ========== Coupon Remove End =========== /////////// -->
 
 </body>
 

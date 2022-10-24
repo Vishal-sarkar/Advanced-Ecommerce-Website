@@ -8,11 +8,14 @@
                     <ul class="list-unstyled">
                         <li><a href="#"><i class="icon fa fa-user"></i>@if(session()->get('language') == 'hindi') मेरी
                                 प्रोफाइल @else My Account @endif</a></li>
-                        <li><a href="{{route('wishlist')}}"><i class="icon fa fa-heart"></i>@if(session()->get('language') == 'hindi')
+                        <li><a href="{{route('wishlist')}}"><i
+                                    class="icon fa fa-heart"></i>@if(session()->get('language') == 'hindi')
                                 इच्छा-सूची @else Wishlist @endif</a></li>
-                        <li><a href="{{route('mycart')}}"><i class="icon fa fa-shopping-cart"></i>@if(session()->get('language') ==
+                        <li><a href="{{route('mycart')}}"><i
+                                    class="icon fa fa-shopping-cart"></i>@if(session()->get('language') ==
                                 'hindi') मेरा थैला @else My Cart @endif</a></li>
-                        <li><a href="{{route('checkout')}}"><i class="icon fa fa-check"></i>@if(session()->get('language') == 'hindi') चेक
+                        <li><a href="{{route('checkout')}}"><i
+                                    class="icon fa fa-check"></i>@if(session()->get('language') == 'hindi') चेक
                                 आउट @else Checkout @endif</a></li>
 
                         <li>
@@ -64,8 +67,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+                    @php
+                    $setting = App\Models\SiteSetting::find(1);
+                    @endphp
                     <!-- ============================================================= LOGO ============================================================= -->
-                    <div class="logo"> <a href="{{url('/')}}"> <img src="{{ asset('frontend/assets/images/logo.png') }}"
+                    <div class="logo"> <a href="{{url('/')}}"> <img src="{{ asset($setting->logo) }}"
                                 alt="logo"> </a> </div>
                     <!-- /.logo -->
                     <!-- ============================================================= LOGO : END ============================================================= -->
@@ -112,11 +118,12 @@
                             <div class="items-cart-inner">
                                 <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
                                 <div class="basket-item-count"><span class="count" id="cartQty"></span></div>
-                                <div class="total-price-basket"> 
-                                    <span class="lbl">cart -</span> 
-                                    <span class="total-price"> 
-                                    <span class="sign">$</span>
-                                    <span class="value" id="cartSubTotal"></span> </span> </div>
+                                <div class="total-price-basket">
+                                    <span class="lbl">cart -</span>
+                                    <span class="total-price">
+                                        <span class="sign">$</span>
+                                        <span class="value" id="cartSubTotal"></span> </span>
+                                </div>
                             </div>
                         </a>
                         <ul class="dropdown-menu">
@@ -127,8 +134,8 @@
                                 </div>
                                 <!-- Mini Cart Start With Ajax -->
                                 <div class="clearfix cart-total">
-                                    <div class="pull-right"> <span class="text">Sub Total :</span><span
-                                            class='price' id="cartSubTotal"></span> </div>
+                                    <div class="pull-right"> <span class="text">Sub Total :</span><span class='price'
+                                            id="cartSubTotal"></span> </div>
                                     <div class="clearfix"></div>
                                     <a href="checkout.html"
                                         class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
@@ -194,8 +201,9 @@
                                                     @endphp
                                                     @foreach($subcategories as $subcategory)
                                                     <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                        <a href="{{url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug_en)}}" style="padding:0;">
-                                                            <h2 class="title" >
+                                                        <a href="{{url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug_en)}}"
+                                                            style="padding:0;">
+                                                            <h2 class="title">
                                                                 @if(session()->get('language') == 'hindi')
                                                                 {{$subcategory->subcategory_name_hin}} @else
                                                                 {{$subcategory->subcategory_name_en}}
@@ -211,7 +219,9 @@
                                                         @foreach($subsubcategories as $subsubcategory)
                                                         <ul class="links">
 
-                                                            <li><a href="{{url('subsubcategory/product/'.$subsubcategory->id.'/'.$subsubcategory->subsubcategory_name_en)}}">@if(session()->get('language') == 'hindi')
+                                                            <li><a
+                                                                    href="{{url('subsubcategory/product/'.$subsubcategory->id.'/'.$subsubcategory->subsubcategory_name_en)}}">@if(session()->get('language')
+                                                                    == 'hindi')
                                                                     {{$subsubcategory->subsubcategory_name_hin}} @else
                                                                     {{$subsubcategory->subsubcategory_name_en}}
                                                                     @endif</a>
@@ -237,7 +247,8 @@
                                 @endforeach
                                 <li class="dropdown  navbar-right special-menu"> <a href="#">Todays offer</a> </li>
 
-                                <li class="dropdown  navbar-right special-menu"> <a href="{{route('home.blog')}}">Blog</a> </li>
+                                <li class="dropdown  navbar-right special-menu"> <a
+                                        href="{{route('home.blog')}}">Blog</a> </li>
                             </ul>
                             <!-- /.navbar-nav -->
                             <div class="clearfix"></div>

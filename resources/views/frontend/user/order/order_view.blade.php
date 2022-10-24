@@ -63,16 +63,44 @@
 
                                 <td class="col-md-2">
                                     <label for="">
+                                        @if($order->status == 'pending')
                                         <span class="badge badge-pill badge-warning"
-                                            style="background: #418DB9;">{{ $order->status }} </span>
+                                            style="background: #800080;">Pending</span>
 
+                                        @elseif($order->status == 'confirm')
+                                        <span class="badge badge-pill badge-warning"
+                                            style="background: #0000FF;">Confirmed</span>
+
+                                        @elseif($order->status == 'processing')
+                                        <span class="badge badge-pill badge-warning"
+                                            style="background: #FFA500;">Processing</span>
+
+                                        @elseif($order->status == 'picked')
+                                        <span class="badge badge-pill badge-warning"
+                                            style="background: #808000;">Picked</span>
+
+                                        @elseif($order->status == 'shipped')
+                                        <span class="badge badge-pill badge-warning"
+                                            style="background: #808080;">Shipped</span>
+
+                                        @elseif($order->status == 'delivered')
+                                        <span class="badge badge-pill badge-warning"
+                                            style="background: #008000;">Delivered</span>
+
+                                        @elseif($order->status == 'cancel')
+                                        <span class="badge badge-pill badge-warning"
+                                            style="background: #FF0000;">Cancel</span>
+
+                                        @endif
                                     </label>
                                 </td>
 
                                 <td class="col-md-1">
-                                    <a href="{{url('user/order_details/'.$order->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> View</a>
+                                    <a href="{{url('user/order_details/'.$order->id)}}"
+                                        class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> View</a>
 
-                                    <a target="_blank" href="{{url('user/invoice_download/'.$order->id)}}" class="btn btn-sm btn-danger" style="margin-top: 5px;"><i class="fa fa-download"
+                                    <a target="_blank" href="{{url('user/invoice_download/'.$order->id)}}"
+                                        class="btn btn-sm btn-danger" style="margin-top: 5px;"><i class="fa fa-download"
                                             style="color: white;"></i> Invoice </a>
 
                                 </td>
@@ -83,7 +111,7 @@
                 </div>
             </div> <!-- / end col md 8 -->
 
-            
+
         </div>
 
     </div>

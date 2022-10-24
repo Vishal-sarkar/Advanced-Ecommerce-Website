@@ -140,6 +140,8 @@ $route = Route::current()->getName();
                         </a>
                         <ul class="treeview-menu">
                             <li class="{{($route == 'site.setting')?'active':''}}"><a href="{{route('site.setting')}}"><i class="ti-more"></i>Site Setting</a></li>
+
+                            <li class="{{($route == 'seo.setting')?'active':''}}"><a href="{{route('seo.setting')}}"><i class="ti-more"></i>SEO Setting</a></li>
                         </ul>
                         
                     </li>

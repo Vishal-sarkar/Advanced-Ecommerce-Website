@@ -114,6 +114,18 @@ class OrderController extends Controller
         
     }
 
+    public function DeliveredToCancel($order_id){
+        Order::findOrFail($order_id)->update(['status' => 'cancel']);
+
+        $notification = array(
+            'message' => 'Order set to cancel successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('delivered-orders')->with($notification);
+        
+    }
+
     public function AdminInvoiceDownload($order_id){
         $order = Order::with('division','district','state','user')->where('id', $order_id)->first();
         $orderItem = OrderItem::with('product')->where('order_id', $order_id)->orderBy('id','DESC')->get();

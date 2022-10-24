@@ -128,7 +128,7 @@
                             <th> Action : </th>
                             <th style="padding:10px;">    
 
-                                @if($order->status == 'Pending')
+                                @if($order->status == 'pending')
                                 <a href="{{route('pending-confirm',$order->id)}}" class="btn btn-sm btn-success" id="confirm">Confirmed Order</a>
                                 
                                 @elseif($order->status == 'confirm')
@@ -143,6 +143,9 @@
 
                                 @elseif($order->status == 'shipped')
                                 <a href="{{route('shipped-delivered',$order->id)}}" class="btn btn-sm btn-success" id="delivered">Delivered Order</a>
+
+                                @elseif($order->status == 'delivered')
+                                <a href="{{route('delivered-cancel',$order->id)}}" class="btn btn-sm btn-success" id="cancel">Cancel</a>
 
                                 @endif
                             </th>

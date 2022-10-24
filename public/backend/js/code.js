@@ -177,3 +177,33 @@ $(function() {
     });
 
 });
+
+$(function() {
+    $(document).on('click', '#cancel', function(e) {
+        e.preventDefault();
+        var link = $(this).attr("href");
+
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to set to cancel, this order?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Cancel!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = link
+                Swal.fire(
+                    'Canceled!',
+                    'Order has been set to Cancel.',
+                    'success'
+                )
+            }
+        })
+
+
+    });
+
+});

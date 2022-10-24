@@ -288,6 +288,8 @@ Route::prefix('orders')->group(function(){
 
     Route::get('/shipped/delivered/{order_id}', [OrderController::class, 'ShippedToDelivered'])->name('shipped-delivered');
 
+    Route::get('/delivered/cancel/{order_id}', [OrderController::class, 'DeliveredToCancel'])->name('delivered-cancel');
+
     Route::get('/invoice/download/{order_id}', [OrderController::class, 'AdminInvoiceDownload'])->name('invoice.download');
 
 });
@@ -335,4 +337,9 @@ Route::get('/blog/category/post/{category_id}', [HomeBlogcontroller::class, 'Hom
 Route::prefix('setting')->group(function(){
     Route::get('/site', [SiteSettingController::class, 'SiteSetting'])->name('site.setting');
 
+    Route::post('/site/update', [SiteSettingController::class, 'SiteSettingUpdate'])->name('update.sitesetting');
+
+    Route::get('/seo', [SiteSettingController::class, 'SeoSetting'])->name('seo.setting');
+
+    Route::post('/seo/update', [SiteSettingController::class, 'SeoSettingUpdate'])->name('update.seosetting');
 });
