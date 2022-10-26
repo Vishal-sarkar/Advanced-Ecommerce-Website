@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\Blogcontroller;
 use App\Http\Controllers\Backend\SiteSettingController;
 use App\Http\Controllers\Backend\ReturnController;
+use App\Http\Controllers\Backend\AdminUserController;
 
 use App\Models\User;
 
@@ -364,4 +365,14 @@ Route::prefix('review')->group(function(){
     Route::get('/publish', [ReviewController::class, 'PublishReview'])->name('publish.review');
 
     Route::get('/delete/{id}', [ReviewController::class, 'DeleteReview'])->name('delete.review');
+});
+
+//Admin Manage Review Routes
+Route::prefix('stock')->group(function(){
+    Route::get('/product', [ProductController::class, 'ProductStock'])->name('product-stock');
+});
+
+//Admin  Role User Routes
+Route::prefix('adminuserrole')->group(function(){
+    Route::get('/all', [AdminUserController::class, 'AllAdminRole'])->name('all.admin.user');
 });
