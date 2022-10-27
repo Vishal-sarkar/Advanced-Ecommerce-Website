@@ -51,7 +51,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                    <img src="{{(!empty($editData->profile_photo_path))?url('upload/admin_images/'.$editData->profile_photo_path):url('upload/no_image.jpg')}}" style="width:100px;height:100px;" id="showImage">
+                                    <img src="{{(!empty($editData->profile_photo_path))?url($editData->profile_photo_path):url('upload/no_image.jpg')}}" style="width:100px;height:100px;" id="showImage">
                                         </div>
                                     </div>
 
