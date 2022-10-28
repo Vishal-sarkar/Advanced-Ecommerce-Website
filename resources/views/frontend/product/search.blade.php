@@ -2,19 +2,14 @@
 @section('content')
 
 @section('title')
-SubCategory Wise Product
+Search Product
 @endsection
 <div class="breadcrumb">
     <div class="container">
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
                 <li><a href="#">Home</a></li>
-                @foreach($breadsubcat as $item)
-                <li class='active'>{{$item->category->category_name_en}}</li>
-                @endforeach
-                @foreach($breadsubcat as $item)
-                <li class='active'>{{$item->subcategory_name_en}}</li>
-                @endforeach
+                <li class='active'>Handbags</li>
             </ul>
         </div>
         <!-- /.breadcrumb-inner -->
@@ -59,9 +54,7 @@ SubCategory Wise Product
                                                 @endphp
                                                 @foreach($subcategories as $subcategory)
                                                 <ul>
-                                                    <li><a
-                                                            href="{{url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug_en)}}">@if(session()->get('language')
-                                                            == 'hindi')
+                                                    <li><a href="{{url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug_en)}}">@if(session()->get('language') == 'hindi')
                                                             {{$subcategory->subcategory_name_hin}} @else
                                                             {{$subcategory->subcategory_name_en}} @endif</a></li>
                                                 </ul>
@@ -189,17 +182,7 @@ SubCategory Wise Product
                         <!-- /.container-fluid -->
                     </div>
                 </div>
-
-                @foreach($breadsubcat as $item)
-
-                <span class="badge badge-danger" style="background: #808080">{{ $item->category->category_name_en }}
-                </span>
-                @endforeach
-                /
-                @foreach($breadsubcat as $item)
-                <span class="badge badge-danger" style="background: #FF0000">{{ $item->subcategory_name_en }} </span>
-
-                @endforeach
+                <h4><b>Total Search </b><span class="badge badge-danger" style="background: #FF0000;"> {{ count($products) }} </span> Items  </h4>
 
                 <div class="clearfix filters-container m-t-10">
                     <div class="row">
@@ -263,7 +246,7 @@ SubCategory Wise Product
                         </div>
                         <!-- /.col -->
                         <div class="col col-sm-6 col-md-4 text-right">
-
+                            
                         </div>
                         <!-- /.col -->
                     </div>
@@ -463,7 +446,6 @@ SubCategory Wise Product
                         <div class="text-right">
                             <div class="pagination-container">
                                 <ul class="list-inline list-unstyled">
-                                    {{$products->links()}}
                                 </ul>
                                 <!-- /.list-inline -->
                             </div>

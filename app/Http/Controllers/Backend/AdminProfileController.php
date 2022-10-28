@@ -27,10 +27,12 @@ class AdminProfileController extends Controller
     public function AdminProfileStore(Request $request){
         $id = Auth::user()->id;
         $data = Admin::find($id);
+        $old_img = $request->old_image;
         $data->name = $request->name;
         $data->email = $request->email;
 
         if ($request->file('profile_photo_path')) {
+            unlink($old_img);
             $image = $request->file('profile_photo_path');
             $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(225,225)->save('upload/admin_images/'.$name_gen);

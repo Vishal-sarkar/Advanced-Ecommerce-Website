@@ -17,6 +17,9 @@
                         <li><a href="{{route('checkout')}}"><i
                                     class="icon fa fa-check"></i>@if(session()->get('language') == 'hindi') चेक
                                 आउट @else Checkout @endif</a></li>
+                        <li><a href="" type="button" data-toggle="modal" data-target="#ordertracker"><i
+                                    class="icon fa fa-truck"></i>@if(session()->get('language') == 'hindi') ऑर्डर ट्रैकर
+                                @else Order Tracker @endif</a></li>
 
                         <li>
                             @auth
@@ -71,8 +74,8 @@
                     $setting = App\Models\SiteSetting::find(1);
                     @endphp
                     <!-- ============================================================= LOGO ============================================================= -->
-                    <div class="logo"> <a href="{{url('/')}}"> <img src="{{ asset($setting->logo) }}"
-                                alt="logo"> </a> </div>
+                    <div class="logo"> <a href="{{url('/')}}"> <img src="{{ asset($setting->logo) }}" alt="logo"> </a>
+                    </div>
                     <!-- /.logo -->
                     <!-- ============================================================= LOGO : END ============================================================= -->
                 </div>
@@ -82,7 +85,8 @@
                     <!-- /.contact-row -->
                     <!-- ============================================================= SEARCH AREA ============================================================= -->
                     <div class="search-area">
-                        <form>
+                        <form method="post" action="{{route('product.search')}}">
+                            @csrf
                             <div class="control-group">
                                 <ul class="categories-filter animate-dropdown">
                                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown"
@@ -100,7 +104,7 @@
                                         </ul>
                                     </li>
                                 </ul>
-                                <input class="search-field" placeholder="Search here..." />
+                                <input class="search-field" name="search" placeholder="Search here..." />
                                 <a class="search-button" href="#"></a>
                             </div>
                         </form>
@@ -267,5 +271,30 @@
     </div>
     <!-- /.header-nav -->
     <!-- ============================================== NAVBAR : END ============================================== -->
+    <!-- Modal -->
+    <div class="modal fade" id="ordertracker" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Track Your Order</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('order.tracking')}}" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <label for="">Invoice Code</label>
+                            <input type="text" name="code" required="" class="form-control" placeholder="Your Order Invoice Number">
+                            <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Track Now</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </header>
