@@ -390,6 +390,14 @@
                                 </div>
 
                             </div>
+                            <div class="col-md-4">
+                                            <div class="form-group">
+                                                <h5>Digital Product<span class="text-danger">pdf,xlx,csv</span></h5>
+                                                <div class="controls">
+                                                    <input type="file" name="file" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
                             <div class="text-xs-right">
                                 <input type="submit" value="Add Product" class="btn btn-rounded btn-primary mb-5">
                             </div>
