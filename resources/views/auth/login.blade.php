@@ -25,13 +25,14 @@
                         <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with Facebook</a>
                         <a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>
                     </div>
+                    <hr>
                     <form method="POST" action="{{ isset($guard) ? url($guard.'/login') : route('login') }}">
                         @csrf
                         <div class="form-group">
                             <label class="info-title" for="exampleInputEmail1">User Name<span>*</span></label>
-                            <input type="text" id="name" name="name"
+                            <input type="text" id="email" name="email"
                                 class="form-control unicase-form-control text-input">
-                            @error('name')
+                            @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{$message}}</strong>
                             </span>
@@ -68,9 +69,9 @@
                         @csrf
                         <div class="form-group">
                             <label class="info-title" for="exampleInputEmail1">Name <span>*</span></label>
-                            <input type="text" id="name" name="regname"
+                            <input type="text" id="name" name="name"
                                 class="form-control unicase-form-control text-input">
-                            @error('regname')
+                            @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{$message}}</strong>
                             </span>

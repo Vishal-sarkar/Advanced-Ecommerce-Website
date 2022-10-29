@@ -328,7 +328,7 @@ p {
 
             </div>
 
-            <hr><br>
+            <hr><br><br>
         </div>
     </article>
 </div>

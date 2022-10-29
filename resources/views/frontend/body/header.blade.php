@@ -104,10 +104,11 @@
                                         </ul>
                                     </li>
                                 </ul>
-                                <input class="search-field" name="search" placeholder="Search here..." />
-                                <a class="search-button" href="#"></a>
+                                <input class="search-field"  onfocus="search_result_show()" onblur="search_result_hide()" id="search" name="search" placeholder="Search here..." />
+                                <button class="search-button" type="submit"></button>
                             </div>
                         </form>
+                        <div id="searchProduct"></div>
                     </div>
                     <!-- /.search-area -->
                     <!-- ============================================================= SEARCH AREA : END ============================================================= -->
@@ -286,9 +287,10 @@
                         @csrf
                         <div class="modal-body">
                             <label for="">Invoice Code</label>
-                            <input type="text" name="code" required="" class="form-control" placeholder="Your Order Invoice Number">
+                            <input type="text" name="code" required="" class="form-control"
+                                placeholder="Your Order Invoice Number">
                             <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger">Track Now</button>
+                                <button type="submit" class="btn btn-danger">Track Now</button>
                             </div>
                         </div>
                     </form>
@@ -298,3 +300,29 @@
     </div>
 
 </header>
+
+<style>
+.search-area {
+    position: relative;
+}
+
+#searchProduct {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    z-index: 999;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+</style>
+<script>
+function search_result_hide() {
+    $("#searchProduct").slideUp();
+}
+
+function search_result_show() {
+    $("#searchProduct").slideDown();
+}
+</script>
