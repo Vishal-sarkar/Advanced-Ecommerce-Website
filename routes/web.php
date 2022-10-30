@@ -23,6 +23,7 @@ use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\frontend\LanguageController;
 use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\frontend\HomeBlogcontroller;
+use App\Http\Controllers\frontend\ShopController;
 
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\CartPageController;
@@ -393,3 +394,7 @@ Route::post('/search', [IndexController::class, 'ProductSearch'])->name('product
 
 /// Advance Search Route
 Route::post('search-product', [IndexController::class, 'SearchProduct']);
+
+/// Shop page Route
+Route::get('/shop', [ShopController::class, 'ShopPage'])->name('shop.page');
+Route::post('/shop/filter', [ShopController::class, 'ShopFilter'])->name('shop.filter');
